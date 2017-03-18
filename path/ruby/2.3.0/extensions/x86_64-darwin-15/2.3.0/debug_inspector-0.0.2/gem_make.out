@@ -1,0 +1,15 @@
+current directory: /Users/flatironschool/Development/code/projects/spotify/spotter/path/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+/Users/flatironschool/.rvm/rubies/ruby-2.3.0/bin/ruby -r ./siteconf20170318-688-19zptm9.rb extconf.rb
+creating Makefile
+
+current directory: /Users/flatironschool/Development/code/projects/spotify/spotter/path/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR=" clean
+
+current directory: /Users/flatironschool/Development/code/projects/spotify/spotter/path/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR="
+compiling debug_inspector.c
+linking shared-object debug_inspector.bundle
+
+current directory: /Users/flatironschool/Development/code/projects/spotify/spotter/path/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 debug_inspector.bundle ./.gem.20170318-688-1v4p7aj
