@@ -8,7 +8,7 @@ $(document).on('ready', function() {
 
   $("body").on("click", "#delete_person", deletePerson)
 
-  $("body").on("click", "#reload", reload)
+  // $("body").on("click", "#reload", reload)
 
 
 })
@@ -108,7 +108,6 @@ function deletePerson(e) {
       method: "delete",
       url: "https://spotandidentify.herokuapp.com/people/1",
       error: function(data){
-        // debugger
       },
       success: function(data) {
         // debugger
@@ -121,6 +120,6 @@ function deletePerson(e) {
 }
 
 
-function reload(e) {
-
-}
+// function reload(e) {
+//
+// }
