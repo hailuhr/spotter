@@ -77,7 +77,7 @@ function makeNewPerson(e) {
       // debugger
       var name_text = "name: " + e.name
       var city_text = "favoriteCity: " + e.favoriteCity
-      $(".show_person").append("<br>").text(name_text).append("<br>").append(city_text).append("<br>")
+      $(".show_person").append("<br><br>").append(name_text).append("<br>").append(city_text).append("<br>")
     }
   })
 }
@@ -113,6 +113,8 @@ function deletePerson(e) {
       success: function(data) {
         // debugger
         $(".delete_message").text(data.message)
+
+
       }
     })
 
