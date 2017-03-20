@@ -1,9 +1,8 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Spotter
 
-Things you may want to cover:
+This project shows the get and post response cycles
 
 * Ruby version
 

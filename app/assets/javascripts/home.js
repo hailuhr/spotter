@@ -4,11 +4,11 @@ $(document).on('ready', function() {
 
   $("body").on("click", "#post_person", makeNewPerson)
 
-  $("body").on("click", "#update_person", updatePerson)
+  $("body").on("click", "#update_person_one", updatePerson)
 
   $("body").on("click", "#delete_person", deletePerson)
 
-  // $("body").on("click", "#reload", reload)
+  $("body").on("click", "#reload", reload)
 
 
 })
@@ -25,27 +25,28 @@ function getPeopleList(e) {
     error: function(data) {
       // debugger
     },
-    success: function(data) {
-      $(".people_list").empty().prepend("<br>").append("<h4>All People</h4>")
+    success: function(data, textStatus, jqXHR) {
+      $("#people_list").empty().prepend("<br>").append("<h4>All People's Names</h4>")
+
+      request_info = "jqXHR: " + jqXHR + "<br>"
+      request_info += jqXHR.getAllResponseHeaders()
+
       data.forEach(function(e){
 
-        // debugger
-
-        print = {id: e.id, name: e.name, favoriteCity: e.favoriteCity}
         var id = e.id
-        var link = $(document.createElement("a"))
-        link.attr('href', "https://spotandidentify.herokuapp.com/people/" + parseInt(id))
-        link.attr('class', "people")
-        link.attr('id', id)
-        link.text(e.name)
-        // link.text ++ e.favoriteCity ++ id
+        var name_link = $(document.createElement("a"))
+        name_link.attr('href', "https://spotandidentify.herokuapp.com/people/" + parseInt(id))
+        name_link.attr('class', "people")
+        name_link.attr('id', id)
+        name_link.text(e.name)
 
-        $(".people_list").append(link).append("<br>")
-        $(".people_list").append(print).append("<br>")
-
-        // debugger
+        $("#people_list").append(name_link).append("<br>")
 
       })
+
+      $("#request_info_peoples_list").empty().prepend("<br>").append("<h4>Request Information</h4>")
+      $("#request_info_peoples_list").append(request_info).append("<br>")
+
 
     }})
 
@@ -60,6 +61,7 @@ function makeNewPerson(e) {
   var name = $("input[name*=name_for_post]").val()
   var favoriteCity = $("input[name*=favoriteCity_for_post]").val()
 
+
   // debugger
 
   $.ajax({
@@ -70,14 +72,18 @@ function makeNewPerson(e) {
         favoriteCity: favoriteCity
       },
     error: function(e) {
-      // debugger
-
     },
-    success: function(e) {
+    success: function(e, textStatus, jqXHR) {
       // debugger
+      request_info = "jqXHR: " + jqXHR + "<br>"
+      request_info += jqXHR.getAllResponseHeaders()
+
       var name_text = "name: " + e.name
       var city_text = "favoriteCity: " + e.favoriteCity
-      $(".show_person").append("<br><br>").append(name_text).append("<br>").append(city_text).append("<br>")
+      $("#show_person").empty().prepend("<br>").append("<h4>New Person Added:</h4>").append(name_text).append("<br>").append(city_text).append("<br>")
+
+      $("#request_info_show_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
+      $("#request_info_show_person").append(request_info).append("<br>")
     }
   })
 }
@@ -93,10 +99,16 @@ function updatePerson(e) {
       },
       error: function(e){
       },
-      success: function(e) {
+      success: function(e, textStatus, jqXHR) {
+        request_info = "jqXHR: " + jqXHR + "<br>"
+        request_info += jqXHR.getAllResponseHeaders()
 
-        var text = "name: " + e.name + "new value for attribute favoriteCity: " + e.favoriteCity
-        $(".person_one_show_update").text(text)
+        var text = e.name + "'s" + " new value for attribute favoriteCity: <br> is now:"
+        var city = "<p style=font-weight:bold>" + e.favoriteCity + "</p>"
+        $("#update_person").empty().prepend("<br>").append("<h4>Attribute Changes</h4>").append(text).append(city)
+
+        $("#request_info_update_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
+        $("#request_info_update_person").append(request_info).append("<br>")
       }
     })
 
@@ -109,17 +121,19 @@ function deletePerson(e) {
       url: "https://spotandidentify.herokuapp.com/people/1",
       error: function(data){
       },
-      success: function(data) {
-        // debugger
-        $(".delete_message").text(data.message)
+      success: function(data, textStatus, jqXHR) {
+        request_info = "jqXHR: " + jqXHR + "<br>"
+        request_info += jqXHR.getAllResponseHeaders()
+        $("#delete_message").empty().prepend("<br>").append("<h4>Deleting Person 1</h4>").append(data.message)
 
-
+        $("#request_info_delete_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
+        $("#request_info_delete_person").append(request_info).append("<br>")
       }
     })
 
 }
 
 
-// function reload(e) {
-//
-// }
+function reload(e) {
+  location.reload()
+}

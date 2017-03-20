@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Spotandidentify</title>
+    <title>Spot and Identify Spotter Client</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <div id="grad1" class="grad1">
+
+      <br>
+      <h1 class="title" style="font-size:50px">Sp&#9737;t and Identify</h1>
+
+    </div>
 
   </head>
 
@@ -15,3 +21,32 @@
     <%= yield %>
   </body>
 </html>
+<footer style="bottom:0">
+  <div id="bottom_grad" class="bottom_grad">
+
+
+    <div class ="container-fluid">
+      <div style="bottom:0; color: green" class ="row">
+        <div class ="col-md-3 col-sm-3" id="">
+          <br><br><br><br><br>
+          <a href="https://github.com/hailuhr/spotandidentify" target="_blank">Spotandidentify Server GitRepo</a>
+        </div>
+        <div class ="col-md-3 col-sm-3" id="">
+          <br><br><br><br><br>
+          <a href="https://github.com/hailuhr/spotter" target="_blank">Spotter Client GitRepo</a>
+         </div>
+         <div class ="col-md-3 col-sm-3" id="">
+           <br><br><br><br><br>
+           <a style="font-weight:bold" href="https://play.spotify.com/user/1224583347" target="_blank"> Favorite Sp&#9737;tify Playlist</a>
+          </div>
+          <div class ="col-md-3 col-sm-3" id="">
+            <br><br><br><br><br>
+            <a href="https://ttp-profile.herokuapp.com/HannaRedleaf " target="_blank">Portfolio </a>
+           </div>
+      </div>
+    </div>
+
+  </div>
+  <a href="https://www.linkedin.com/in/hannahailuredleaf/" target="_blank" style="position:fixed; bottom:0; right:0;">&copy; Made with Soul by Hanna Hailu</a>
+
+</footer>

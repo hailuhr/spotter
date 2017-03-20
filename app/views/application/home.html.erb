@@ -1,21 +1,26 @@
 <br>
-<br>
-
-<h1 class="title">Spot and Identify</h1>
 
 <br>
 
 <br>
-<p>Make Get Request To '/people'</p>
+<p style="font-weight:bold">Make Get Request To '/people'</p><br>
 <button type = "button" class = "btn btn-default" id = "get_people">Get /people</button>
 <div class="people_list">
 
 </div>
 
+<div class ="container-fluid">
+  <div class ="row">
+    <div class ="col-md-6 col-sm-6" id="people_list">
+    </div>
+    <div class ="col-md-6 col-sm-6" id="request_info_peoples_list">
+     </div>
+  </div>
+</div>
 
 <br><br>
 <br><br>
-______
+<p style="color: lightgreen">________________________</p>
 <br><br>
 <br><br>
 
@@ -23,12 +28,14 @@ ______
 
 <div class="container" id="maincontent" tabindex="-1">
     <div class="row">
+      <p style="font-weight:bold">Make Post Request To '/people'</p><br>
+
       <%= form_tag('/people', method: :post) do %>
 
-          <p>New Person Name:</p>
+          New Person Name:<br>
           <%= text_field_tag :name_for_post %><br><br>
 
-          <p>New Person Favorite City:</p>
+          New Person Favorite City:<br>
           <%= text_field_tag :favoriteCity_for_post %><br><br>
 
           <button type = "submit" class = "btn btn-default" id = "post_person">Post to /people</button>
@@ -37,28 +44,41 @@ ______
 
     </div>
 
-    <div class="show_person">
-    </div>
 
+    <div class ="container-fluid">
+      <div class ="row">
+        <div class ="col-md-6 col-sm-6" id="show_person">
+        </div>
+        <div class ="col-md-6 col-sm-6" id="request_info_show_person">
+         </div>
+      </div>
+    </div>
 
 </div>
 
 
 <br><br>
 <br><br>
-______
+<p style="color: lightgreen">________________________</p>
 <br><br>
 <br><br>
 
 
 <div class="success">
 
-    <p>Update Person 1's Favorite City:</p><br>
+    <p style="font-weight:bold">Update Person 1's Favorite City:</p><br>
     <%= text_field_tag :favoriteCity_for_put %><br><br>
 
-    <button type = "submit" class = "btn btn-default" id = "update_person">Put /people/1</button>
+    <button type = "submit" class = "btn btn-default" id ="update_person_one">Put /people/1</button>
 
-  <div class="person_one_show_update">
+  </div>
+  <div class ="container-fluid">
+    <div class ="row">
+      <div class ="col-md-6 col-sm-6" id="update_person">
+      </div>
+      <div class ="col-md-6 col-sm-6" id="request_info_update_person">
+       </div>
+    </div>
   </div>
 
 </div>
@@ -66,19 +86,24 @@ ______
 
 <br><br>
 <br><br>
-______
+<p style="color: lightgreen">________________________</p>
 <br><br>
 <br><br>
 
 <div class="delete_person">
 
-    <p>Delete Person 1</p><br>
+    <p style="font-weight:bold">Make a Delete Request to '/people/1'</p><br>
 
     <button type = "submit" class = "btn btn-default" id = "delete_person">Delete /people/1</button>
 
 
-  <div class="delete_message">
-
+  <div class ="container-fluid">
+    <div class ="row">
+      <div class ="col-md-6 col-sm-6" id="delete_message">
+      </div>
+      <div class ="col-md-6 col-sm-6" id="request_info_delete_person">
+       </div>
+    </div>
   </div>
 
 
@@ -86,6 +111,11 @@ ______
 
 <br><br>
 <br><br>
-_____ Done! _____
+<p style="color: lightgreen">________________________</p>
+
+<br><br>
+<button type = "submit" class = "btn btn-default" id ="reload"> Done | Clear </button>
+
+<br><br>
 <br><br>
 <br><br>
