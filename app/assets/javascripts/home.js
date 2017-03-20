@@ -36,8 +36,7 @@ function getPeopleList(e) {
         var id = e.id
         var name_link = $(document.createElement("a"))
         name_link.attr('href', "https://spotandidentify.herokuapp.com/people/" + parseInt(id))
-        name_link.attr('class', "people")
-        name_link.attr('id', id)
+        name_link.attr('class', "people").attr('id', id).attr('target', '_blank')
         name_link.text(e.name)
 
         $("#people_list").append(name_link).append("<br>")
@@ -103,9 +102,14 @@ function updatePerson(e) {
         request_info = "jqXHR: " + jqXHR + "<br>"
         request_info += jqXHR.getAllResponseHeaders()
 
-        var text = e.name + "'s" + " new value for attribute favoriteCity: <br> is now:"
-        var city = "<p style=font-weight:bold>" + e.favoriteCity + "</p>"
-        $("#update_person").empty().prepend("<br>").append("<h4>Attribute Changes</h4>").append(text).append(city)
+        if (e.message) {
+          var text = "That person has been deleted already!"
+        } else {
+          var text = e.name + "'s" + " new value for attribute favoriteCity: <br> is now:"
+          var city = "<p style=font-weight:bold>" + e.favoriteCity + "</p>"
+        }
+
+        $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's favoriteCity Attribute</h4>").append(text).append(city)
 
         $("#request_info_update_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
         $("#request_info_update_person").append(request_info).append("<br>")
@@ -124,7 +128,11 @@ function deletePerson(e) {
       success: function(data, textStatus, jqXHR) {
         request_info = "jqXHR: " + jqXHR + "<br>"
         request_info += jqXHR.getAllResponseHeaders()
-        $("#delete_message").empty().prepend("<br>").append("<h4>Deleting Person 1</h4>").append(data.message)
+        if (data.valid) {
+          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1</h4>").append(data.message)
+        } else {
+          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1</h4>").append("<br> Sorry, the person with id 1 has been deleted already!<br>Sean is gone.")
+        }
 
         $("#request_info_delete_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
         $("#request_info_delete_person").append(request_info).append("<br>")
