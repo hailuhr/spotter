@@ -103,13 +103,13 @@ function updatePerson(e) {
         request_info += jqXHR.getAllResponseHeaders()
 
         if (e.message) {
-          var text = "That person has been deleted already!"
+          var text = "That person has been deleted!"
         } else {
           var text = e.name + "'s" + " new value for attribute favoriteCity: <br> is now:"
           var city = "<p style=font-weight:bold>" + e.favoriteCity + "</p>"
         }
 
-        $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's favoriteCity Attribute</h4>").append(text).append(city)
+        $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's Favorite City</h4>").append(text).append(city)
 
         $("#request_info_update_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
         $("#request_info_update_person").append(request_info).append("<br>")
@@ -129,9 +129,9 @@ function deletePerson(e) {
         request_info = "jqXHR: " + jqXHR + "<br>"
         request_info += jqXHR.getAllResponseHeaders()
         if (data.valid) {
-          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1</h4>").append(data.message)
+          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append(data.message)
         } else {
-          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1</h4>").append("<br> Sorry, the person with id 1 has been deleted already!<br>Sean is gone.")
+          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br> Sorry, the person with id 1 has been deleted already!<br>Sean is gone.")
         }
 
         $("#request_info_delete_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
