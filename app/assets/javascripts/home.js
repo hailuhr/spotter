@@ -146,7 +146,7 @@ function deletePerson(e) {
       method: "delete",
       url: "https://spotandidentify.herokuapp.com/people/1",
       error: function(data, textStatus, jqXHR){
-        $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Sorry, the person with id 1 has been deleted already!<br>Sean has been gone.")
+        $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Sorry, the person with id 1 has been deleted already!<br>Sean is long gone.")
 
         request_info = "jqXHR: " + jqXHR + "<br>" + "textStatus: " + textStatus
         $("#request_info_delete_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
