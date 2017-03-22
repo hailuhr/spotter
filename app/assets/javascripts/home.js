@@ -69,12 +69,18 @@ function makeNewPerson(e) {
       $("#show_person").empty().prepend("<br>").append("Something went wrong..try again.")
     },
     success: function(data, textStatus, jqXHR) {
+
       request_info = "jqXHR: " + jqXHR + "<br>"
       request_info += jqXHR.getAllResponseHeaders()
 
       var name_text = "name: " + data.name
       var city_text = "favoriteCity: " + data.favoriteCity
-      $("#show_person").empty().prepend("<br>").append("<h4>New Person Added:</h4>").append(name_text).append("<br>").append(city_text).append("<br>")
+      if (typeof(data.name) == "object"){
+        $("#show_person").empty().prepend("<br>").append("<h4>No Person Added:</h4>").append(name_text).append("<br>").append(city_text)
+      } else {
+        $("#show_person").empty().prepend("<br>").append("<h4>New Person Added:</h4>").append(name_text).append("<br>").append(city_text)
+      }
+
 
       $("#request_info_show_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
       $("#request_info_show_person").append(request_info).append("<br>")
@@ -96,12 +102,13 @@ function updatePerson(e) {
         $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's Favorite City</h4>").append(text)
       },
       success: function(data, textStatus, jqXHR) {
+
         request_info = "jqXHR: " + jqXHR + "<br>"
         request_info += jqXHR.getAllResponseHeaders()
         if (typeof(data.favoriteCity) == "object"){
           var text = "The new value for attribute favoriteCity <br>" + data.favoriteCity
         } else {
-          var text = data.name + "'s" + " new value for the attribute favoriteCity: <br> is now:"
+          var text = data.name + "'s" + " new value for the attribute favoriteCity <br> is now:"
           var city = "<p style=font-weight:bold>" + data.favoriteCity + "</p>"
         }
 
@@ -122,13 +129,12 @@ function deletePerson(e) {
         $("#delete_message").empty().prepend("<br>").append("Something went wrong..try again.")
       },
       success: function(data, textStatus, jqXHR) {
-        // debugger
         request_info = "jqXHR: " + jqXHR + "<br>"
         request_info += jqXHR.getAllResponseHeaders()
         if (data == null) {
           $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Sorry, the person with id 1 has been deleted already!<br>Sean has been gone.")
         } else {
-          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Person with id 1 has been deleted, Sean is gone!")
+          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Person with id 1 is now deleted, Sean is gone!")
         }
 
         $("#request_info_delete_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
