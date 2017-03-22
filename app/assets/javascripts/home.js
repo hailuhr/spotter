@@ -83,8 +83,12 @@ function makeNewPerson(e) {
 
       if (data.errors){
         var error_info = "<h4>No Person Added:</h4>"
+
           data.errors.forEach(function(info){
-            error_info += info.title.toLowerCase() + "<br>"
+            if (info.id == "favoriteCity"){
+              info.title = info.title.replace(/Favoritecity/i, 'Favorite city')
+            }
+            error_info += "<text style=font-weight:bold>" + info.id + ": " + "</text>"+ info.title + "<br>"
           })
 
         $("#show_person").empty().prepend("<br>").append(error_info)
@@ -123,13 +127,17 @@ function updatePerson(e) {
         request_info += jqXHR.getAllResponseHeaders()
 
         if (data.errors){
+          data.errors.forEach(function(info){
               text = "The new value for attribute favoriteCity was not accepted: <br>"
-              data.errors.forEach(function(info){
-                text += info.title.toLowerCase() + "<br>"
-              })
+              if (info.id == "favoriteCity"){
+                info.title = info.title.replace(/Favoritecity/i, 'Favorite city')
+              }
+              text += "<text style=font-weight:bold>" + info.id + ": " + "</text>" + info.title + "<br>"
+            })
+
           } else {
-          var text = data.name + "'s" + " new value for the attribute favoriteCity <br> is now:"
-          text += "<p style=font-weight:bold>" + data.favoriteCity + "</p>"
+            var text = data.name + "'s" + " new value for the attribute favoriteCity <br> is now:"
+            text += "<p style=font-weight:bold>" + data.favoriteCity + "</p>"
         }
 
         $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's Favorite City:</h4>").append(text)
