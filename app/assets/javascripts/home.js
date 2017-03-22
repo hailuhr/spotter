@@ -16,28 +16,27 @@ $(document).on('ready', function() {
 
 
 function getPeopleList(e) {
-  // debugger;
 
   history.replaceState({}, document.title, ".");
   $.ajax({
     method: "get",
     url: "https://spotandidentify.herokuapp.com/people",
     error: function(data) {
-      // debugger
     },
     success: function(data, textStatus, jqXHR) {
+
       $("#people_list").empty().prepend("<br>").append("<h4>All People's Names</h4>")
 
       request_info = "jqXHR: " + jqXHR + "<br>"
       request_info += jqXHR.getAllResponseHeaders()
 
-      data.forEach(function(e){
+      data.forEach(function(person){
 
-        var id = e.id
+        var id = person.id
         var name_link = $(document.createElement("a"))
         name_link.attr('href', "https://spotandidentify.herokuapp.com/people/" + parseInt(id))
         name_link.attr('class', "people").attr('id', id).attr('target', '_blank')
-        name_link.text(e.name)
+        name_link.text(person.name)
 
         $("#people_list").append(name_link).append("<br>")
 
@@ -54,14 +53,10 @@ function getPeopleList(e) {
 
 
 function makeNewPerson(e) {
-  // debugger
 
   e.preventDefault()
   var name = $("input[name*=name_for_post]").val()
   var favoriteCity = $("input[name*=favoriteCity_for_post]").val()
-
-
-  // debugger
 
   $.ajax({
     method: "post",
@@ -70,15 +65,15 @@ function makeNewPerson(e) {
         name: name,
         favoriteCity: favoriteCity
       },
-    error: function(e) {
+    error: function(data) {
+
     },
-    success: function(e, textStatus, jqXHR) {
-      // debugger
+    success: function(data, textStatus, jqXHR) {
       request_info = "jqXHR: " + jqXHR + "<br>"
       request_info += jqXHR.getAllResponseHeaders()
 
-      var name_text = "name: " + e.name
-      var city_text = "favoriteCity: " + e.favoriteCity
+      var name_text = "name: " + data.name
+      var city_text = "favoriteCity: " + data.favoriteCity
       $("#show_person").empty().prepend("<br>").append("<h4>New Person Added:</h4>").append(name_text).append("<br>").append(city_text).append("<br>")
 
       $("#request_info_show_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
@@ -96,17 +91,18 @@ function updatePerson(e) {
       data: {
         favoriteCity: favoriteCity
       },
-      error: function(e){
+      error: function(data){
+        var text = "That person has been deleted from the database!"
+        $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's Favorite City</h4>").append(text)
       },
-      success: function(e, textStatus, jqXHR) {
+      success: function(data, textStatus, jqXHR) {
         request_info = "jqXHR: " + jqXHR + "<br>"
         request_info += jqXHR.getAllResponseHeaders()
-
-        if (e.message) {
-          var text = "That person has been deleted!"
+        if (typeof(data.favoriteCity) == "object"){
+          var text = "The new value for attribute favoriteCity <br>" + data.favoriteCity
         } else {
-          var text = e.name + "'s" + " new value for attribute favoriteCity: <br> is now:"
-          var city = "<p style=font-weight:bold>" + e.favoriteCity + "</p>"
+          var text = data.name + "'s" + " new value for the attribute favoriteCity: <br> is now:"
+          var city = "<p style=font-weight:bold>" + data.favoriteCity + "</p>"
         }
 
         $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's Favorite City</h4>").append(text).append(city)
@@ -119,7 +115,6 @@ function updatePerson(e) {
 }
 
 function deletePerson(e) {
-
     $.ajax({
       method: "delete",
       url: "https://spotandidentify.herokuapp.com/people/1",
