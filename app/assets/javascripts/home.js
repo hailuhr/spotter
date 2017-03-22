@@ -10,7 +10,6 @@ $(document).on('ready', function() {
 
   $("body").on("click", "#reload", reload)
 
-
 })
 
 
@@ -22,6 +21,7 @@ function getPeopleList(e) {
     method: "get",
     url: "https://spotandidentify.herokuapp.com/people",
     error: function(data) {
+      $("#people_list").empty().prepend("<br>").append("Something went wrong..try again.")
     },
     success: function(data, textStatus, jqXHR) {
 
@@ -66,7 +66,7 @@ function makeNewPerson(e) {
         favoriteCity: favoriteCity
       },
     error: function(data) {
-
+      $("#show_person").empty().prepend("<br>").append("Something went wrong..try again.")
     },
     success: function(data, textStatus, jqXHR) {
       request_info = "jqXHR: " + jqXHR + "<br>"
@@ -119,14 +119,16 @@ function deletePerson(e) {
       method: "delete",
       url: "https://spotandidentify.herokuapp.com/people/1",
       error: function(data){
+        $("#delete_message").empty().prepend("<br>").append("Something went wrong..try again.")
       },
       success: function(data, textStatus, jqXHR) {
+        // debugger
         request_info = "jqXHR: " + jqXHR + "<br>"
         request_info += jqXHR.getAllResponseHeaders()
-        if (data.valid) {
-          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append(data.message)
+        if (data == null) {
+          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Sorry, the person with id 1 has been deleted already!<br>Sean has been gone.")
         } else {
-          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br> Sorry, the person with id 1 has been deleted already!<br>Sean is gone.")
+          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Person with id 1 has been deleted, Sean is gone!")
         }
 
         $("#request_info_delete_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
