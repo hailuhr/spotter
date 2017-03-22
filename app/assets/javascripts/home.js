@@ -20,8 +20,12 @@ function getPeopleList(e) {
   $.ajax({
     method: "get",
     url: "https://spotandidentify.herokuapp.com/people",
-    error: function(data) {
+    error: function(data, textStatus, jqXHR) {
       $("#people_list").empty().prepend("<br>").append("Something went wrong..try again.")
+
+      request_info = "jqXHR: " + jqXHR + "<br>" + "textStatus: " + textStatus
+      $("#request_info_peoples_list").empty().prepend("<br>").append("<h4>Request Information</h4>")
+      $("#request_info_peoples_list").append(request_info).append("<br>")
     },
     success: function(data, textStatus, jqXHR) {
 
@@ -65,22 +69,30 @@ function makeNewPerson(e) {
         name: name,
         favoriteCity: favoriteCity
       },
-    error: function(data) {
+    error: function(data, textStatus, jqXHR) {
       $("#show_person").empty().prepend("<br>").append("Something went wrong..try again.")
+
+      request_info = "jqXHR: " + jqXHR + "<br>" + "textStatus: " + textStatus
+      $("#request_info_show_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
+      $("#request_info_show_person").append(request_info).append("<br>")
     },
     success: function(data, textStatus, jqXHR) {
 
       request_info = "jqXHR: " + jqXHR + "<br>"
       request_info += jqXHR.getAllResponseHeaders()
 
-      var name_text = "name: " + data.name
-      var city_text = "favoriteCity: " + data.favoriteCity
-      if (typeof(data.name) == "object"){
-        $("#show_person").empty().prepend("<br>").append("<h4>No Person Added:</h4>").append(name_text).append("<br>").append(city_text)
+      if (data.errors){
+        var error_info = "<h4>No Person Added:</h4>"
+          data.errors.forEach(function(info){
+            error_info += info.title.toLowerCase() + "<br>"
+          })
+
+        $("#show_person").empty().prepend("<br>").append(error_info)
       } else {
+        var name_text = "name: " + data.name
+        var city_text = "favoriteCity: " + data.favoriteCity
         $("#show_person").empty().prepend("<br>").append("<h4>New Person Added:</h4>").append(name_text).append("<br>").append(city_text)
       }
-
 
       $("#request_info_show_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
       $("#request_info_show_person").append(request_info).append("<br>")
@@ -97,22 +109,30 @@ function updatePerson(e) {
       data: {
         favoriteCity: favoriteCity
       },
-      error: function(data){
+      error: function(data, textStatus, jqXHR){
         var text = "That person has been deleted from the database!"
-        $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's Favorite City</h4>").append(text)
+        $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's Favorite City:</h4>").append(text)
+
+        request_info = "jqXHR: " + jqXHR + "<br>" + "textStatus: " + textStatus
+        $("#request_info_update_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
+        $("#request_info_update_person").append(request_info).append("<br>")
       },
       success: function(data, textStatus, jqXHR) {
 
         request_info = "jqXHR: " + jqXHR + "<br>"
         request_info += jqXHR.getAllResponseHeaders()
-        if (typeof(data.favoriteCity) == "object"){
-          var text = "The new value for attribute favoriteCity <br>" + data.favoriteCity
-        } else {
+
+        if (data.errors){
+              text = "The new value for attribute favoriteCity was not accepted: <br>"
+              data.errors.forEach(function(info){
+                text += info.title.toLowerCase() + "<br>"
+              })
+          } else {
           var text = data.name + "'s" + " new value for the attribute favoriteCity <br> is now:"
-          var city = "<p style=font-weight:bold>" + data.favoriteCity + "</p>"
+          text += "<p style=font-weight:bold>" + data.favoriteCity + "</p>"
         }
 
-        $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's Favorite City</h4>").append(text).append(city)
+        $("#update_person").empty().prepend("<br>").append("<h4>Change Person 1's Favorite City:</h4>").append(text)
 
         $("#request_info_update_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
         $("#request_info_update_person").append(request_info).append("<br>")
@@ -125,17 +145,19 @@ function deletePerson(e) {
     $.ajax({
       method: "delete",
       url: "https://spotandidentify.herokuapp.com/people/1",
-      error: function(data){
-        $("#delete_message").empty().prepend("<br>").append("Something went wrong..try again.")
+      error: function(data, textStatus, jqXHR){
+        $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Sorry, the person with id 1 has been deleted already!<br>Sean has been gone.")
+
+        request_info = "jqXHR: " + jqXHR + "<br>" + "textStatus: " + textStatus
+        $("#request_info_delete_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
+        $("#request_info_delete_person").append(request_info).append("<br>")
       },
       success: function(data, textStatus, jqXHR) {
+
         request_info = "jqXHR: " + jqXHR + "<br>"
         request_info += jqXHR.getAllResponseHeaders()
-        if (data == null) {
-          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Sorry, the person with id 1 has been deleted already!<br>Sean has been gone.")
-        } else {
-          $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Person with id 1 is now deleted, Sean is gone!")
-        }
+
+        $("#delete_message").empty().prepend("<br>").append("<h4>Delete Person 1 - Sean</h4>").append("<br>Person with id 1 is now deleted, Sean is gone!")
 
         $("#request_info_delete_person").empty().prepend("<br>").append("<h4>Request Information</h4>")
         $("#request_info_delete_person").append(request_info).append("<br>")
